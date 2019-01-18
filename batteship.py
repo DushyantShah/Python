@@ -19,29 +19,29 @@ def create_board():
 
 # Function to print Player 1's board
 def print_user_board():
-	print "---------------"
-	print "Player 1 board"
-	print "---------------"
+	print("---------------")
+	print("Player 1 board")
+	print("---------------")
 	for row in user_board:
-		print " ".join(row)
+		print(" ".join(row))
 
 
 # Function to print Player 1's guesses
 def print_user_guess_board():
-	print "---------------"
-	print "Player 1's guesses"
-	print "---------------"
+	print("---------------")
+	print("Player 1's guesses")
+	print("---------------")
 	for row in user_guess_board:
-		print " ".join(row)
+		print(" ".join(row))
 
 
 # Function to print the computer's board
 def print_comp_board():
-	print "---------------"
-	print "Computer board"
-	print "---------------"
+	print("---------------")
+	print("Computer board")
+	print("---------------")
 	for row in comp_board:
-		print " ".join(row)
+		print(" ".join(row))
 
 
 # Function to check a board if the battleship has sunk
@@ -63,16 +63,16 @@ def place_ship(player):
 		while battleship_nofit:
 			while x > 4:
 				try:
-					x = abs(int(raw_input("X coordinate of your battleship [0-4]:")))
+					x = abs(int(input("X coordinate of your battleship [0-4]:")))
 				except ValueError:
 					print ("Invalid input. Please try again.")
 			while y > 4:
 				try:
-					y = abs(int(raw_input("Y coordinate of your battleship [0-4]:")))
+					y = abs(int(input("Y coordinate of your battleship [0-4]:")))
 				except ValueError:
 					print ("Invalid input. Please try again.")
 			while orientation != "V" and orientation != "H":
-				orientation = str(raw_input("Orientation - Vertical(V) or Horizontal(H):")).upper()
+				orientation = str(input("Orientation - Vertical(V) or Horizontal(H):")).upper()
 			# print orientation
 			if orientation == "H" and x + 3 > 5:
 				print ("Please re-enter your coordinates as your battleship does not fit on the board")
@@ -102,14 +102,14 @@ def place_ship(player):
 def play_game():
 	winner = "Nobody"
 	turn = "player1"
-	print "\n---------------"
+	print ("\n---------------")
 	print("Let's play Battleship")
-	print "---------------"
+	print ("---------------")
 	while winner == "Nobody":
 		if turn == "player1":
 			# Requesting player 1 to make a guess
 			while True:
-				guesses = raw_input("\nPlease enter your guess (Format: row col) - ").split()
+				guesses = input("\nPlease enter your guess (Format: row col) - ").split()
 				if len(guesses) != 2:
 					print("You have not entered 2 values. Please try again")
 					continue
@@ -127,14 +127,12 @@ def play_game():
 						else:
 							break
 			if comp_board[guess_row][guess_col] == "B":
-				print player_one + " guessed [" + str(guess_row) + "," + str(
-					guess_col) + "] and that was a hit! Good job!"
+				print( "{0} guessed [{1},{2}] and that was a hit! Good job!".format(player_one, str(guess_row), str(guess_col)))
 				user_guess_board[guess_row][guess_col] = "X"
 				comp_board[guess_row][guess_col] = "X"
 
 			else:
-				print "Oh sorry! " + player_one + " guessed [" + str(guess_row) + "," + str(
-					guess_col) + "] and that was miss."
+				print("Oh sorry! {0} guessed [{1},{2}] and that was miss.".format(player_one, str(guess_row), str(guess_col)))
 				user_guess_board[guess_row][guess_col] = "o"
 				comp_board[guess_row][guess_col] = "o"
 			print_user_guess_board()
@@ -144,10 +142,10 @@ def play_game():
 			guess_row = randint(0, len(user_board) - 1)
 			guess_col = randint(0, len(user_board) - 1)
 			if user_board[guess_row][guess_col] == "B":
-				print "Oh the computer guessed [" + str(guess_row) + "," + str(guess_col) + "] and hit your battleship!"
+				print("Oh the computer guessed [{0},{1}] and hit your battleship!".format(str(guess_row), str(guess_col)))
 				user_board[guess_row][guess_col] = "X"
 			else:
-				print "The computer guessed [" + str(guess_row) + "," + str(guess_col) + "] and missed your battleship"
+				print("The computer guessed [{0},{1}] and missed your battleship".format(str(guess_row),str(guess_col)))
 				user_board[guess_row][guess_col] = "o"
 			print_user_board()
 			turn = "player1"
@@ -158,14 +156,14 @@ def play_game():
 			winner = "Computer"
 	# Congratulate the winner
 	if winner == "Player1":
-		print "Congratulations! You won"
+		print("Congratulations! You won")
 	else:
-		print "I am sorry you lost"
+		print("I am sorry you lost")
 
 
 global player_one
-player_one = raw_input("Enter your name:")
-print "Hello " + player_one + "! Welcome to BattleShip"
+player_one = input("Enter your name:")
+print("Hello {0}! Welcome to BattleShip".format(player_one))
 
 create_board()
 place_ship(user_board)
